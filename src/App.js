@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import AuthState from './context/AuthState';
+import PostState from './context/PostState';
+import AuthContext from './context/auth/authContext';
+import Auth from './components/Auth';
+import Dashboard from './components/Dashboard';
+import PostForm from './components/PostForm';
+import Posts from './components/Posts';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthState>
+      <PostState>
+        <Router>
+          <div className="App">
+            <Switch>
+              <Route exact path="/" component={Auth} />
+              <Route exact path="/dashboard" component={Dashboard} />
+              <Route exact path="/new-post" component={PostForm} />
+              <Route exact path="/posts" component={Posts} />
+            </Switch>
+          </div>
+        </Router>
+      </PostState>
+    </AuthState>
   );
-}
+};
 
 export default App;
+
